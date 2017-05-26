@@ -45,7 +45,7 @@ In the following sections I explain how I created feature vectors from this data
 
 
 ## Feature Extraction
-The final feature vector is combination of all the individual feature vectors. This means that all individual feature vectors are appended together to create one long vector of ??? size per image.
+The final feature vector is combination of all the individual feature vectors. This means that all individual feature vectors are appended together to create one long vector of 2580 elements per image.
 
 ## Data Preparation 
 There are a few other steps before the feature vector is ready to be used to train the classifier.
@@ -54,9 +54,17 @@ The first step after building the feature vector is to normalize it so that it h
 ### Train/Test Split
 The next is to shuffle the data so that the order at which the classifier recieves the data is random. I then split the data to training and testing sets with ratio of 80:20. Both the shuffle and split is done using ```train_test_split()``` function in sklearn.
 The figure below shows the number of training (blue) and testing (orange) classes in the dataset.
-As it can be seen both training and testing datasets are pretty much balanced between the two classes.
-## Classification Model
 
+-- add image
+
+As it can be seen both training and testing datasets are pretty much balanced between the two classes.
+
+## Classification Model
+The next step is training the classification model. I use a linear SVM model as discussed in the lectures. The number of training samples are 14208.
+The prediction accuary on the test dataset (3552) is 97%.
+I have played with the elements of feature vector to improve the model performace.
+
+????
 
 ## Windowed Search
 
