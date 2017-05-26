@@ -1,9 +1,7 @@
-##Writeup Template
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
----
+# Vehicle Detection Project
 
-**Vehicle Detection Project**
+
 
 The goals / steps of this project are the following:
 
@@ -23,6 +21,35 @@ The goals / steps of this project are the following:
 [image6]: ./examples/labels_map.png
 [image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
+
+
+##  Data 
+
+## Features
+### HOG Features
+### Color Features
+### Color Space
+### Spatial Binning
+
+
+## Feature Extraction
+## Data Preparation 
+### Scaling 
+### Train/Test Split
+
+## Classification Model
+
+
+## Windowed Search
+
+## Heatmap and Thresholding
+
+
+## Video
+
+## Future Improvements
+
+
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
 ###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
