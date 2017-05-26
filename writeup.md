@@ -25,10 +25,15 @@ The goals / steps of this project are the following:
 
 ##  Data 
 The data used for this project contains image postage stamps from vehicles and non-vehicles which can be obtained from [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) repectively.
-Each image if 64x64 in 3 color channels in 'png' format. The figure below shows a few examples of each class.
+Each image if 64x64 in 3 color channels in 'png' format with pixel values between 0-1. The figure below shows a few examples of each class. 
+
+-- add image
+
 These images are used to train the classifier that predicts the image class (car = 1 and non-car = 0).
+In the following sections I explain how I created feature vectors from this dataset to train and test the classification model.
 
 ## Features
+
 ### HOG Features
 ### Color Features
 ### Color Space
@@ -36,10 +41,14 @@ These images are used to train the classifier that predicts the image class (car
 
 
 ## Feature Extraction
-## Data Preparation 
-### Scaling 
-### Train/Test Split
+The final feature vector is combination of all the individual feature vectors. This means that all individual feature vectors are appended together to create one long vector of ??? size per image.
 
+## Data Preparation 
+There are a few other steps before the feature vector is ready to be used to train the classifier.
+### Scaling 
+The first step after building the feature vector is to normalize it so that it has mean = 0 and variance = 1. This step is done using ```StandardScaler().fit(X)``` function from sklearn.
+### Train/Test Split
+The next is to shuffle the data so that the order at which the classifier recieves the data is random. I then split the data to training and testing sets with ratio of 80:20. Both the shuffle and split is done using ```train_test_split()``` function in sklearn.
 ## Classification Model
 
 
