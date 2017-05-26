@@ -24,6 +24,9 @@ The goals / steps of this project are the following:
 
 
 ##  Data 
+The data used for this project contains image postage stamps from vehicles and non-vehicles which can be obtained from [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) repectively.
+Each image if 64x64 in 3 color channels in 'png' format. The figure below shows a few examples of each class.
+These images are used to train the classifier that predicts the image class (car = 1 and non-car = 0).
 
 ## Features
 ### HOG Features
