@@ -1,9 +1,7 @@
-##Writeup Template
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
 
----
+# Vehicle Detection Project
 
-**Vehicle Detection Project**
+
 
 The goals / steps of this project are the following:
 
@@ -24,15 +22,65 @@ The goals / steps of this project are the following:
 [image7]: ./examples/output_bboxes.png
 [video1]: ./project_video.mp4
 
-## [Rubric](https://review.udacity.com/#!/rubrics/513/view) Points
-###Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
----
-###Writeup / README
+##  Data 
+The data used for this project contains image postage stamps from vehicles and non-vehicles which can be obtained from [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) repectively.
+Each image if 64x64 in 3 color channels in 'png' format with pixel values between 0-1. In total I used 8792 vehicle images and 8968 non-vehicle images, which is more or less a balanced distribution. The figure below shows a few examples of each class. 
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one.  You can submit your writeup as markdown or pdf.  [Here](https://github.com/udacity/CarND-Vehicle-Detection/blob/master/writeup_template.md) is a template writeup for this project you can use as a guide and a starting point.  
+-- add image
 
-You're reading it!
+These images are used to train the classifier that predicts the image class (car = 1 and non-car = 0).
+The figure below shows the distribution of classes in the dataset:
+
+-- add image
+
+In the following sections I explain how I created feature vectors from this dataset to train and test the classification model.
+
+## Features
+
+### HOG Features
+### Color Features
+### Color Space
+### Spatial Binning
+
+
+## Feature Extraction
+The final feature vector is combination of all the individual feature vectors. This means that all individual feature vectors are appended together to create one long vector of 2580 elements per image.
+
+## Data Preparation 
+There are a few other steps before the feature vector is ready to be used to train the classifier.
+### Scaling 
+The first step after building the feature vector is to normalize it so that it has mean = 0 and variance = 1. This step is done using ```StandardScaler().fit(X)``` function from sklearn.
+### Train/Test Split
+The next is to shuffle the data so that the order at which the classifier recieves the data is random. I then split the data to training and testing sets with ratio of 80:20. Both the shuffle and split is done using ```train_test_split()``` function in sklearn.
+The figure below shows the number of training (blue) and testing (orange) classes in the dataset.
+
+-- add image
+
+As it can be seen both training and testing datasets are pretty much balanced between the two classes.
+
+## Classification Model
+The next step is training the classification model. I use a linear SVM model as discussed in the lectures. The number of training samples are 14208.
+The prediction accuary on the test dataset (3552) is 97%.
+I have played with the elements of feature vector to improve the model performace.
+
+????
+
+## Windowed Search
+
+## Heatmap and Thresholding
+
+
+## Video
+
+## Future Improvements
+
+
+
+
+
+
+
 
 ###Histogram of Oriented Gradients (HOG)
 
@@ -105,4 +153,5 @@ Here's an example result showing the heatmap from a series of frames of video, t
 ####1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
 
 Here I'll talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.  
-
+ ### Future Improvements
+ I think using the window size as a function of poistion in y axis, is a smarter way to reduce both number of total windows and also false positive detections, since only larger windows will be allowed near the bottom of image, so the chances of small patches near the bottom  being classified as car wouldbe reduced.
