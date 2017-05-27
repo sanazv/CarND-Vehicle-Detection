@@ -4,43 +4,77 @@
 
 
 The goals / steps of this project are the following:
-
-* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
-* Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector. 
-* Note: for those first two steps don't forget to normalize your features and randomize a selection for training and testing.
-* Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
-* Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
-* Estimate a bounding box for vehicles detected.
+The goal of this project was to design a pipeline (computer vision based and not deep learning), to detect cars on the video frames.
+In order to achive this goal the following steps were taken:
+* Extract features from postage stamp images of cars and non cars to train a classifier.
+* Set and train a classifier and tune the feature vector to optimize the accuacy of the classifier on test sample.
+* Apply a search window on the video frames and for each window, use the trained classifier to predict whether or not the window includes a car.
+* Setup a heatmap technique to combine the detection across all windows on the image frame to generate a car detection zone.
+* Apply the pipeline to the video stream.
+I will go over each and every one of the steps above is more details with visual examples in the following:
 
 [//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
+[box_heatmap_thresh]: ./writeup_images/box_and_thresh_heatmap.png
+[data_sample]: ./writeup_images/car_noncar_examples.png
+[car_detection]: ./writeup_images/car_detection.png
+
+[all_and_hot_windows]: ./writeup_images/all_and_hot_windows.png
+[all_and_hot_heat]: ./writeup_images/all_and_hot_windows_heat.png
+
+[class_dist]: ./writeup_images/class_distr.png
+[color_f]: ./writeup_images/color_features.png
+[HLS]: ./writeup_images/HLS_car.png
+[HSV]: ./writeup_images/HSV_car.png
+[LUV]: ./writeup_images/LUV_car.png
+[hog_f]: ./writeup_images/hog_features.png
+[hog_im]: ./writeup_images/hog_image.png
+[spatial_f]: ./writeup_images/spatial_features.png
+
+[train_test_dist]: ./writeup_images/train_test_class_distr.png
+[YUV]: ./writeup_images/YUV_car.png
+[YCC]: ./writeup_images/YCrCb_car.png
+
 [video1]: ./project_video.mp4
 
 
 ##  Data 
 The data used for this project contains image postage stamps from vehicles and non-vehicles which can be obtained from [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) repectively.
-Each image if 64x64 in 3 color channels in 'png' format with pixel values between 0-1. In total I used 8792 vehicle images and 8968 non-vehicle images, which is more or less a balanced distribution. The figure below shows a few examples of each class. 
+Each image is 64x64 in 3 color channels in 'png' format with pixel values between 0-1. In total I used 8792 vehicle images and 8968 non-vehicle images, which is more or less a balanced distribution. The figure below shows a few examples of each class. 
 
--- add image
+![alt text][data_sample]
 
 These images are used to train the classifier that predicts the image class (car = 1 and non-car = 0).
 The figure below shows the distribution of classes in the dataset:
 
--- add image
+![alt text][class_dist]
+
 
 In the following sections I explain how I created feature vectors from this dataset to train and test the classification model.
 
 ## Features
 
-### HOG Features
+### HOG (Histogram of Oriented Gradients) Features
+
 ### Color Features
+One the elements of the feature vector is the histogram of pixel value intentisity in the three color channels.
+Here is an example of color features for car and non-car images:
+
+![alt text][color_f]
+
 ### Color Space
+The choice of color space can make an impact on the classification accuacy. The differece between car and non-car images are more visible in certain colorspace channels than others. Here I provide examples of such differences accorss a series of colorspaces.
+
+![alt text][HSV]
+![alt text][LUV]
+![alt text][YUV]
+![alt text][YCC]
+
+
+At the end I chose to go with the HLS colorspace and more specificcally the S channel, as it seems to pick up the color saturation of the cars over the less saturated background well.
+Here is an example of S channel in HLS color space on a sample car and non-car image:
+
+![alt text][HLS]
+
 ### Spatial Binning
 
 
@@ -55,7 +89,7 @@ The first step after building the feature vector is to normalize it so that it h
 The next is to shuffle the data so that the order at which the classifier recieves the data is random. I then split the data to training and testing sets with ratio of 80:20. Both the shuffle and split is done using ```train_test_split()``` function in sklearn.
 The figure below shows the number of training (blue) and testing (orange) classes in the dataset.
 
--- add image
+![alt text][train_test_dist]
 
 As it can be seen both training and testing datasets are pretty much balanced between the two classes.
 
@@ -73,17 +107,18 @@ The 5 window sizes I chose are: 70, 120, 150, 180, 240 pixels per side, and the 
 
 The figure below shows the overlapping windows of variious sizes the way they will be overlaid on each image. I used 75% overlap between each window pair.  
 
---- add image
+![alt text][all_and_hot_windows]
 
 With this configration, the total number of windows applied to each image is: 160.
 The image gets scanned by each window and that patch is passed to the classifier to predict yes,no for vehicle detection. If vehicle is detected on the patch, all pixel values within that patch will be increased by 1. At the end of the search each pixel has been visited at least once by the window search. In the next section I discuss the search hot and cold zones in more detail.
 
--- add overlapping window image
 
+![alt text][all_and_hot_heat]
+One a side note, each frame from the video is in 'jpg' format, while the classifier has been trained on 'png' images, so the video frame images are scaled down to 0-1 before being windowed and fed into the classifier prediction.
 
 ## Heatmap and Thresholding
 
-
+![alt text][train_test_dist]
 ## Video
 
 ## Future Improvements
