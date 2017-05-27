@@ -16,6 +16,7 @@ I will go over each and every one of the steps above is more details with visual
 [//]: # (Image References)
 [box_heatmap_thresh]: ./writeup_images/box_and_thresh_heatmap.png
 [data_sample]: ./writeup_images/car_noncar_examples.png
+[car_detection]: ./writeup_images/car_detection.png
 
 [all_and_hot_windows]: ./writeup_images/all_and_hot_windows.png
 [all_and_hot_heat]: ./writeup_images/all_and_hot_windows_heat.png
