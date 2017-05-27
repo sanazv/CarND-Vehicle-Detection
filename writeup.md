@@ -146,6 +146,7 @@ That being said there is always room for improvement. Below I will briefly descr
 To improve the car detection,  I would like to focus on reducing the number of false positive detections further. One way would be to appy a mask on the image an disallow window search to search the areas outside of lane lines.
 Also even though the model performs well on test samples, it can be in principal improved by adding augmented data and also experimenting with other SVM kernels.
 Another option for improvement also is to smooth the boxes drawn from frame to frame by keeping a running average on the heatmaps.
+Finally it would be very interesting to compare the performance of this pipeline with YOLO darknet (https://pjreddie.com/darknet/yolo/) as an example of deep learning-based approach to object detectoin
 
 
 
