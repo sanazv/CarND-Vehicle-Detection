@@ -13,13 +13,21 @@ The goals / steps of this project are the following:
 * Estimate a bounding box for vehicles detected.
 
 [//]: # (Image References)
-[image1]: ./examples/car_not_car.png
-[image2]: ./examples/HOG_example.jpg
-[image3]: ./examples/sliding_windows.jpg
-[image4]: ./examples/sliding_window.jpg
-[image5]: ./examples/bboxes_and_heat.png
-[image6]: ./examples/labels_map.png
-[image7]: ./examples/output_bboxes.png
+[box_heatmap_thresh]: ./writeup_images/box_and_thresh_heatmap.png
+[data_sample]: ./writeup_images/car_noncar_examples.png
+[class_dist]: ./writeup_images/class_distr.png
+[color_f]: ./writeup_images/color_features.png
+[HLS]: ./writeup_images/HLS_car.png
+[HSV]: ./writeup_images/HSV_car.png
+[LUV]: ./writeup_images/LUV_car.png
+[hog_f]: ./writeup_images/hog_features.png
+[hog_im]: ./writeup_images/hog_image.png
+[spatial_f]: ./writeup_images/spatial_features.png
+
+[train_test_dist]: ./writeup_images/train_test_class_distr.png
+[YUV]: ./writeup_images/YUV_car.png
+[YCC]: ./writeup_images/YCrCb_car.png
+
 [video1]: ./project_video.mp4
 
 
