@@ -69,17 +69,13 @@ I have played with the elements of feature vector to improve the model performac
 
 
 I choose a different size window for different regions of the image, since cars in the distance appear to be smaller, so smaller search windows are only applied to distant regions and larger windows to regions closer to the driver.
-The window sizes I chose are: ???
-
-????
-and the region of the image they are applied in y are:
-???
+The 5 window sizes I chose are: 70, 120, 150, 180, 240 pixels per side, and the region of the image they are applied in y are [410, 480],[400, 520],[400, 550],[380,550],[400,640] respectively.
 
 The figure below shows the overlapping windows of variious sizes the way they will be overlaid on each image. I used 75% overlap between each window pair.  
 
 --- add image
 
-With this configration, the total number of windows applied to each image is: 129.
+With this configration, the total number of windows applied to each image is: 160.
 The image gets scanned by each window and that patch is passed to the classifier to predict yes,no for vehicle detection. If vehicle is detected on the patch, all pixel values within that patch will be increased by 1. At the end of the search each pixel has been visited at least once by the window search. In the next section I discuss the search hot and cold zones in more detail.
 
 -- add overlapping window image
