@@ -4,13 +4,14 @@
 
 
 The goals / steps of this project are the following:
-
-* Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier
-* Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector. 
-* Note: for those first two steps don't forget to normalize your features and randomize a selection for training and testing.
-* Implement a sliding-window technique and use your trained classifier to search for vehicles in images.
-* Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.
-* Estimate a bounding box for vehicles detected.
+The goal of this project was to design a pipeline (computer vision based and not deep learning), to detect cars on the video frames.
+In order to achive this goal the following steps were taken:
+* Extract features from postage stamp images of cars and non cars to train a classifier.
+* Set and train a classifier and tune the feature vector to optimize the accuacy of the classifier on test sample.
+* Apply a search window on the video frames and for each window, use the trained classifier to predict whether or not the window includes a car.
+* Setup a heatmap technique to combine the detection across all windows on the image frame to generate a car detection zone.
+* Apply the pipeline to the video stream.
+I will go over each and every one of the steps above is more details with visual examples in the following:
 
 [//]: # (Image References)
 [box_heatmap_thresh]: ./writeup_images/box_and_thresh_heatmap.png
@@ -37,7 +38,7 @@ The goals / steps of this project are the following:
 
 ##  Data 
 The data used for this project contains image postage stamps from vehicles and non-vehicles which can be obtained from [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) repectively.
-Each image if 64x64 in 3 color channels in 'png' format with pixel values between 0-1. In total I used 8792 vehicle images and 8968 non-vehicle images, which is more or less a balanced distribution. The figure below shows a few examples of each class. 
+Each image is 64x64 in 3 color channels in 'png' format with pixel values between 0-1. In total I used 8792 vehicle images and 8968 non-vehicle images, which is more or less a balanced distribution. The figure below shows a few examples of each class. 
 
 ![alt text][data_sample]
 
@@ -51,9 +52,26 @@ In the following sections I explain how I created feature vectors from this data
 
 ## Features
 
-### HOG Features
+### HOG (Histogram of Oriented Gradients) Features
+
 ### Color Features
+
 ### Color Space
+The choice of color space can make an impact on the classification accuacy. The differece between car and non-car images are more visible in certain colorspace channels than others. Here I provide examples of such differences accorss a series of colorspaces.
+
+![alt text][HSV]
+![alt text][LUV]
+![alt text][YUV]
+![alt text][YCrCb]
+
+
+At the end I chose to go with the HLS colorspace and more specificcally the S channel, as it seems to pick up the color saturation of the cars over the less saturated background well.
+Here is an example of S channel in HLS color space on a sample car and non-car image:
+
+![alt text][HLS]
+
+
+
 ### Spatial Binning
 
 
@@ -93,6 +111,7 @@ The image gets scanned by each window and that patch is passed to the classifier
 
 
 ![alt text][all_and_hot_heat]
+One a side note, each frame from the video is in 'jpg' format, while the classifier has been trained on 'png' images, so the video frame images are scaled down to 0-1 before being windowed and fed into the classifier prediction.
 
 ## Heatmap and Thresholding
 
