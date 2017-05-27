@@ -55,6 +55,10 @@ In the following sections I explain how I created feature vectors from this data
 ### HOG (Histogram of Oriented Gradients) Features
 
 ### Color Features
+One the elements of the feature vector is the histogram of pixel value intentisity in the three color channels.
+Here is an example of color features for car and non-car images:
+
+![alt text][color_f]
 
 ### Color Space
 The choice of color space can make an impact on the classification accuacy. The differece between car and non-car images are more visible in certain colorspace channels than others. Here I provide examples of such differences accorss a series of colorspaces.
@@ -62,15 +66,13 @@ The choice of color space can make an impact on the classification accuacy. The 
 ![alt text][HSV]
 ![alt text][LUV]
 ![alt text][YUV]
-![alt text][YCrCb]
+![alt text][YCC]
 
 
 At the end I chose to go with the HLS colorspace and more specificcally the S channel, as it seems to pick up the color saturation of the cars over the less saturated background well.
 Here is an example of S channel in HLS color space on a sample car and non-car image:
 
 ![alt text][HLS]
-
-
 
 ### Spatial Binning
 
