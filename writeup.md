@@ -15,6 +15,10 @@ The goals / steps of this project are the following:
 [//]: # (Image References)
 [box_heatmap_thresh]: ./writeup_images/box_and_thresh_heatmap.png
 [data_sample]: ./writeup_images/car_noncar_examples.png
+
+[all_and_hot_windows]: ./writeup_images/all_and_hot_windows.png
+[all_and_hot_heat]: ./writeup_images/all_and_hot_windows_heat.png
+
 [class_dist]: ./writeup_images/class_distr.png
 [color_f]: ./writeup_images/color_features.png
 [HLS]: ./writeup_images/HLS_car.png
@@ -35,12 +39,13 @@ The goals / steps of this project are the following:
 The data used for this project contains image postage stamps from vehicles and non-vehicles which can be obtained from [vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/vehicles.zip) and [non-vehicle](https://s3.amazonaws.com/udacity-sdc/Vehicle_Tracking/non-vehicles.zip) repectively.
 Each image if 64x64 in 3 color channels in 'png' format with pixel values between 0-1. In total I used 8792 vehicle images and 8968 non-vehicle images, which is more or less a balanced distribution. The figure below shows a few examples of each class. 
 
--- add image
+![alt text][data_sample]
 
 These images are used to train the classifier that predicts the image class (car = 1 and non-car = 0).
 The figure below shows the distribution of classes in the dataset:
 
--- add image
+![alt text][class_dist]
+
 
 In the following sections I explain how I created feature vectors from this dataset to train and test the classification model.
 
@@ -63,7 +68,7 @@ The first step after building the feature vector is to normalize it so that it h
 The next is to shuffle the data so that the order at which the classifier recieves the data is random. I then split the data to training and testing sets with ratio of 80:20. Both the shuffle and split is done using ```train_test_split()``` function in sklearn.
 The figure below shows the number of training (blue) and testing (orange) classes in the dataset.
 
--- add image
+![alt text][train_test_dist]
 
 As it can be seen both training and testing datasets are pretty much balanced between the two classes.
 
@@ -81,17 +86,17 @@ The 5 window sizes I chose are: 70, 120, 150, 180, 240 pixels per side, and the 
 
 The figure below shows the overlapping windows of variious sizes the way they will be overlaid on each image. I used 75% overlap between each window pair.  
 
---- add image
+![alt text][all_and_hot_windows]
 
 With this configration, the total number of windows applied to each image is: 160.
 The image gets scanned by each window and that patch is passed to the classifier to predict yes,no for vehicle detection. If vehicle is detected on the patch, all pixel values within that patch will be increased by 1. At the end of the search each pixel has been visited at least once by the window search. In the next section I discuss the search hot and cold zones in more detail.
 
--- add overlapping window image
 
+![alt text][all_and_hot_heat]
 
 ## Heatmap and Thresholding
 
-
+![alt text][train_test_dist]
 ## Video
 
 ## Future Improvements
