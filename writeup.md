@@ -62,7 +62,7 @@ In the figure below I show and example of hog transformation on the first channe
 As it can be seen hog transformation provides a good indication of the overall shape of the object and by tuning parameters we can arrive at reasonable distinction between car and non-car shapes.
 In the next figure I show the corresponding hog feature vector for the above image:
 
-![alt text][hog_ft]
+![alt text][hog_f]
 
 
 
